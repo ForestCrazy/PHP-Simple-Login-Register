@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS `account` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` VARCHAR(600) NOT NULL,
-  `salt` varchar(255),
   `createtime` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
