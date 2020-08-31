@@ -1,5 +1,12 @@
 <?php
 session_start();
+// เป็นการเริ่มการทำงานของ session
+/*
+session มีคุณสมบัติทุกอย่างเหมือนกับตัวแปรปกติ สามารถเก็บค่าข้อความหรือตัวเลขได้ แต่มีความพิเศษคือค่าตัวแปรจะยังคงอยู่ไม่ว่าจะเปลี่ยนหน้าไปหน้าใดก็ตาม 
+ตัวแปรเซสชั่นนิยมนำมาใช้ในการจดจำการล็อกอิน หากมีการปิดหน้าเว็บข้อมูลใน session จะหายไปทันที
+
+สำคัญ session_start ต้องอยู่บน tag html หรือ อยู่บนสุดของโค้ด
+*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,13 +23,17 @@ session_start();
 
 <body>
     <div class="container">
-        <?php if (isset($_SESSION["username"])) { ?>
+        <?php if (isset($_SESSION["username"])) { 
+        // ถ้ามีการล็อกอินอยู่แล้วให้ทำงานใน {} นี้    
+        ?>
             <div class="justify-content-md-center">
                 <h2>Welcome! <?php echo $_SESSION["username"]; ?></h2><br>
                 <a href="register.php">Goto Register page</a><br><br>
                 <a href="logout.php">Logout</a>
             </div>
-        <?php } else { ?>
+        <?php } else { 
+        // แต่ถ้าเงื่อนไขที่ผ่านมาไม่ถูกต้องทั้งหมด ก็จะมาทำงานที่ else    
+        ?>
             <div class="justify-content-md-center">
                 <h2>You are not logged in.</h2><br>
                 <a href="register.php">Goto Register page</a><br><br>

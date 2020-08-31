@@ -1,5 +1,12 @@
 <?php
 session_start();
+// เป็นการเริ่มการทำงานของ session
+/*
+session มีคุณสมบัติทุกอย่างเหมือนกับตัวแปรปกติ สามารถเก็บค่าข้อความหรือตัวเลขได้ แต่มีความพิเศษคือค่าตัวแปรจะยังคงอยู่ไม่ว่าจะเปลี่ยนหน้าไปหน้าใดก็ตาม 
+ตัวแปรเซสชั่นนิยมนำมาใช้ในการจดจำการล็อกอิน หากมีการปิดหน้าเว็บข้อมูลใน session จะหายไปทันที
+
+สำคัญ session_start ต้องอยู่บน tag html หรือ อยู่บนสุดของโค้ด
+*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +49,7 @@ session_start();
 </html>
 <?php
 if (isset($_POST["submit_login"])) {
+    // ถ้า มีการกดปุ่ม Submit เข้ามา 
     require_once("connect.php");
     $username = mysqli_real_escape_string($connect, $_POST["username"]);
     $password = mysqli_real_escape_string($connect, $_POST["password"]);
