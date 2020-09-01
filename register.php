@@ -1,5 +1,6 @@
 <?php
 session_start();
+// เริ่มการทำงานของ session
 ?>
 <!DOCTYPE html>
 <html lang="en">
