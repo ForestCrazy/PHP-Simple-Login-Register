@@ -55,7 +55,7 @@ if (isset($_POST["submit_login"])) {
     // ถ้า มี submit_login ในรูปแบบ post เข้ามา ให้ทำงานในสโคปนี้
 
     require_once("connect.php");
-    // ไปเอาไฟล์ connect.php เข้ามาใช้งานในไฟล์นี้ ในไฟล์ connect.php มีตัวแปรอะไรบ้าง ก็สามารถใช้งานตัวแปรนั้นข้ามไฟล์ได้เลย
+    // ไปเอาไฟล์ หรือ นำไฟล์ connect.php เข้ามาใช้งานในไฟล์นี้ ในไฟล์ connect.php มีตัวแปรอะไรบ้าง ก็สามารถใช้งานตัวแปรนั้นในไฟล์นี้ได้เลย
 
     $username = $_POST["username"];
     // นำค่าจาก name="username" ในรูปแบบ post มาเก็บไว้ในตัวแปร username
@@ -66,7 +66,7 @@ if (isset($_POST["submit_login"])) {
     $query = 'SELECT * FROM account WHERE username = "' . $username . '" AND password = "' . $password . '"';
     // สร้างตัวแปร query มาไว้สำหรับเก็บคำสั่ง sql โดยคำสั่ง sql ที่ใช้เนียคือ ให้ไปหา username และ password ในฐานข้อมูล โดย username และ password ต้องตรงกันถ้า อย่างใดอย่างนึงผิดก็จะหาไม่เจอทันที
 
-    $result = $connect->query($query);
+    $result = mysqli_query($connect, $query);
     // สร้างตัวแปร result ขึ้นมาไว้ทำการ query คำสั่ง sql เข้าไปที่ sql server ก็คือนำคำสั่ง sql ในตัวแปร query ไปรันบน sql server แล้วเอาผลลัพธ์ที่รันมาเก็บไว้ในตัวแปร result
 
     if ($result->num_rows == 1) {

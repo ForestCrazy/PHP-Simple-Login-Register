@@ -43,21 +43,93 @@ session_start();
 </html>
 <?php
 if (isset($_POST["submit_register"])) {
+    // ถ้า มี submit_register ในรูปแบบ post เข้ามา ให้ทำงานในสโคปนี้
+
     require_once("connect.php");
-    $username = mysqli_real_escape_string($connect, $_POST["username"]);
+    // ไปเอาไฟล์ หรือ นำไฟล์ connect.php เข้ามาใช้งานในไฟล์นี้ ในไฟล์ connect.php มีตัวแปรอะไรบ้าง ก็สามารถใช้งานตัวแปรนั้นในไฟล์นี้ได้เลย
+
+    $username = $_POST["username"];
+    // นำค่าจาก name="username" ในรูปแบบ post มาเก็บไว้ในตัวแปร username
+
+    $password = $_POST["password"];
+    // นำค่าจาก name="password" ในรูปแบบ post มาเก็บไว้ในตัวแปร password
+
     $user_check = 'SELECT * FROM account WHERE username = "' . $username . '"';
-    $result = $connect->query($user_check);
-    if ($result->num_rows <= 0) {
-        $password_sha = hash('sha256', $_POST['password']);
-        $query = "INSERT INTO account (username, password) VALUE ('$username', '$password_sha')";
-        $result = $connect->query($query);
+    // สร้างตัวแปร user_check มาไว้สำหรับเก็บคำสั่ง sql โดยคำสั่ง sql ที่ใช้เนียคือ ให้ไปหา username ในฐานข้อมูล
+
+    $result = mysqli_query($connect, $user_check);
+    // สร้างตัวแปร result ขึ้นมาไว้ทำการ query คำสั่ง sql เข้าไปที่ sql server ก็คือนำคำสั่ง sql ในตัวแปร user_check ไปรันบน sql server แล้วเอาผลลัพธ์ที่รันมาเก็บไว้ในตัวแปร result
+
+    if ($result->num_rows == 0) {
+        // ถ้า จำนวนแถวที่ค้นหามี 1 แถว ให้ทำงานในสโคปนี้
+        /*
+        อธิบายเพิ่มเติมนิดนึง คือเราเก็บผลลัพธ์การ query หรือ การรัน คำสั่ง sql เนีย ไว้ในตัวแปร result
+        ทีนี้เราก็เอาตัวแปร result มา -> กับ num_rows เพื่อนับจำนวนแถวที่ query ข้อมูลมาได้
+        ถ้าจำนวนแถวมี 0 แถว (หรือก็คือไม่มีชื่อผู้ใช้นี้ในฐานข้อมูล) ให้ทำงานในสโคปนี้
+
+        ก็คือที่เราต้องหาชื่อผู้ใช้ก่อนเนียเพราะว่าป้องกันการสมัครซ้ำ
+        โดย ให้หาในฐานข้อมูลก่อนว่ามี username ที่สมัครมามั้ย
+        ถ้าไม่มีก็ให้ทำการสมัครสมาชิกต่อได้เลย (บันทึก username และ password เข้าฐานข้อมูล)
+        แต่ถ้ามี ก็จะไม่ผ่านเงื่อนไขตรง   if ($result->num_rows == 0)
+        */
+
+        $query = 'INSERT INTO account (username, password) VALUES ("' . $username . '", "' . $password . '")';
+        // สร้างตัวแปร query มาไว้สำหรับเก็บคำสั่ง sql โดยคำสั่ง sql ที่ใช้เนียคือ insert หรือ นำเข้าข้อมูลเข้าสู่ ฐานข้อมูล
+        /*
+        อธิบายเสริมเกี่ยวกับคำสั่ง insert ของ sql นิดนึง
+        รูปแบบคำสั่ง insert เนียจะประมาณนี้
+        INSERT INTO ชื่อตาราง (ชื่อคอลัมน์1,ชื่อคอลัมน์2,ชื่อคอลัมน์3,ชื่อคอลัมน์...) VALUES ('ค่าที่1','ค่าที่2','ค่าที่3','ค่าที่...')
+
+        เขียนครั้งแรกๆอาจจะงงๆถ้าหัดเขียนบ่อยๆ จะเข้าใจมากขึ้น
+        */
+        
+        $result = mysqli_query($connect, $query);
+        // นำตัวแปร result มาเก็บผลการ query sql ตัวแปรสามารถใช้ซ้ำได้ เผื่อบางคนจะงงว่าทำไม result ถึงซ้ำ เพราะ query ที่เก็บใน result ก่อนหน้าไม่ได้ใช้แล้ว จึงสามารถนำตัวแปร result มาเก็บค่าใหม่ได้เลย
+        
         if ($result) {
+            /* 
+            ตรงนี้งงแน่ๆถ้าเป็นคนที่เพิ่งหัดเขียน php คือใน result ที่บอกว่าเก็บ query เนียจะเก็บค่าเป็น boolean ก็คือ True False
+            ถ้าเป็น True เนียก็คือ query สำเร็จ ไม่มี error อะไร
+            ถ้าเป็น False ก็คือ query ไม่สำเร็จ มี error
+            อธิบาย if else เสริมก็คือ
+
+            if (True) {
+                จะทำงานแค่ในนี้ เพราะ if เป็น True
+            } else {
+                จะไม่มีทางทำงานในนี้แน่นอน
+            }
+
+            if (False) {
+                จะไม่มีทางทำงานในนี้แน่นอนเพราะ if เป็น False
+            } else {
+                จะทำงานในนี้เพราะ if เป็น false หรือก็คือเงื่อนไขข้างบนไม่ถูกต้องเลยมาทำงานที่ else
+            }
+
+            เลยนำมาใช้งานเพื่อตรวจสอบว่าทำการบันทึกข้อมูลเข้าฐานข้อมูลสำเร็จมั้ย
+            */
+
             $_SESSION['username'] = $username;
+            // กำหนด session ชื่อ username ให้เก็บชื่อผู้ใช้เอาไว้ ให้เบาร์เซอร์จำไว้ว่า เนียที่เราล็อกอินอยู่เนีย ล็อกอินด้วย username นี้นะ
+
             header("Location: index.php");
+            // เป็นคำสั่งให้ redirect ไปที่ไฟล์หรือหน้า index.php เป็นคำสั่ง redirect ของ php
+            
         } else {
             echo "<script>alert('Something went wrong');</script>";
+            // จะทำงานเมื่อ query error หรือ เป็น false ให้แจ้งเตือนว่ามีบางอย่างไม่ถูกต้อง
+            /*
+            echo ของ php จะ echo เป็นภาษา html ตามโค้ดข้างบนคือ ใช้ tag script เพื่อเรียกใช้ภาษา javascript
+            alert ของ javascript คือกล่องข้อความที่แจ้งเตือนขึ้นมา โดยจะให้แจ้งเตือนว่า   Something went wrong
+            */
         }
     } else {
+        // ตรงนี้ดูดีๆนะ ว่าเป็น else ของ if ไหน ตอนนี้มี if else ใน if else อยู่พยายามดูให้ดีๆ
+
         echo "<script>alert('Username already exists');</script>";
+        // จะทำงานเมื่อมีอยู่ในฐานข้อมูล แจ้งเตือนว่า ชื่อผู้ใช้นี้ ถูกใช้ไปแล้ว
+        /*
+        echo ของ php จะ echo เป็นภาษา html ตามโค้ดข้างบนคือ ใช้ tag script เพื่อเรียกใช้ภาษา javascript
+        alert ของ javascript คือกล่องข้อความที่แจ้งเตือนขึ้นมา โดยจะให้แจ้งเตือนว่า   Username already exists
+        */
     }
 }
