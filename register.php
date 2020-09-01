@@ -7,8 +7,17 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
+    <!-- กำหนดรูปแบบของตัวอักษร -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- กำหนดขนาดหน้าจอ ความกว้าง=ความกว้างของหน้าจอ อัตราส่วน 1.0 -->
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 
+        X-UA-Compatible คือการกำหนดเอนจิ้นหรือตัวเรนเดอร์หน้าเว็บ
+        IE=edge เป็นการกำหนดให้เรนเดอร์หน้าเว็บด้วยตัวเอนจิ้นเวอร์ชั่นล่าสุด
+     -->
+
     <title>PHP - Simple Register</title>
 
     <!-- Bootstrap 4 -->
@@ -121,6 +130,7 @@ if (isset($_POST["submit_register"])) {
             echo ของ php จะ echo เป็นภาษา html ตามโค้ดข้างบนคือ ใช้ tag script เพื่อเรียกใช้ภาษา javascript
             alert ของ javascript คือกล่องข้อความที่แจ้งเตือนขึ้นมา โดยจะให้แจ้งเตือนว่า   Something went wrong
             */
+
         }
     } else {
         // ตรงนี้ดูดีๆนะ ว่าเป็น else ของ if ไหน ตอนนี้มี if else ใน if else อยู่พยายามดูให้ดีๆ

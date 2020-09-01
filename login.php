@@ -69,11 +69,11 @@ if (isset($_POST["submit_login"])) {
     $result = mysqli_query($connect, $query);
     // สร้างตัวแปร result ขึ้นมาไว้ทำการ query คำสั่ง sql เข้าไปที่ sql server ก็คือนำคำสั่ง sql ในตัวแปร query ไปรันบน sql server แล้วเอาผลลัพธ์ที่รันมาเก็บไว้ในตัวแปร result
 
-    if ($result->num_rows == 1) {
-        // ถ้า จำนวนแถวที่ค้นหามี 1 แถว ให้ทำงานในสโคปนี้     num_rows เนียเป็นเหมือนคำสั่งที่เอาไว้นับจำนวนแถวที่ทำการ query ข้อมูลใน sql ไป
+    if (mysqli_num_rows($result) == 1) {
+        // ถ้า จำนวนแถวที่ค้นหามี 1 แถว ให้ทำงานในสโคปนี้     mysqli_num_rows เนียเป็นเหมือนคำสั่งที่เอาไว้นับจำนวนแถวที่ทำการ query ข้อมูลใน sql ไป
         /* 
         อธิบายเพิ่มเติมนิดนึง คือเราเก็บผลลัพธ์การ query หรือ การรัน คำสั่ง sql เนีย ไว้ในตัวแปร result
-        ทีนี้เราก็เอาตัวแปร result มา -> กับ num_rows เพื่อนับจำนวนแถวที่ query ข้อมูลมาได้
+        ทีนี้เราก็เอาตัวแปร result มา mysqli_num_rows เพื่อนับจำนวนแถวที่ query ข้อมูลมาได้
         ถ้าจำนวนแถวมีแค่ 1 ก็คือมันจะมากกว่า 1 ไม่ได้แน่นอน เพราะในระบบ มี username นี้แค่ username เดียวจะไม่มีซ้ำแน่นอน
         ส่วน password ซ้ำได้ แต่มันเป็นข้อมูลที่เก็บในแถวเดียวกันกับ username ดังนั้นถ้า username ตรงแต่ password ไม่ตรง
         ก็หาไม่เจออยู่ดี หรือ username ไม่ตรงแต่ password ตรงก็หาไม่เจออยู่ดี
@@ -89,6 +89,7 @@ if (isset($_POST["submit_login"])) {
 
         header("Location: index.php");
         // เป็นคำสั่งให้ redirect ไปที่ไฟล์หรือหน้า index.php เป็นคำสั่ง redirect ของ php    redirect คือการเปลี่ยนเส้นทาง หรือ เปลี่ยนหน้าเว็บไปหน้านั้นๆที่เรากำหนดไว้
+        
     } else {
         // ถ้าเงื่อนไขข้างบนไม่ถูกต้อง เลยมาทำงานในสโคปนี้
         /*
@@ -115,7 +116,7 @@ if (isset($_POST["submit_login"])) {
         echo "<script>alert('Username or Password is not correct');</script>";
         // echo ของ php จะ echo เป็นภาษา html ตามโค้ดข้างบนคือ ใช้ tag script เพื่อเรียกใช้ภาษา javascript 
         /*
-        alert ของ javascript คือกล่องข้อความที่แจ้งเตือนขึ้นมา โดยจะให้แจ้งเตือนว่า   Username or Password is not correct  
+        alert ของ javascript คือกล่องข้อความที่แจ้งเตือนขึ้นมา โดยจะให้แจ้งเตือนว่า   Username or Password is not correct
         */
     }
 }
