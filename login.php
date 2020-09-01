@@ -28,6 +28,7 @@ session มีคุณสมบัติทุกอย่างเหมือ
                 <h1>Login Form</h1>
             </div>
             <form action="" method="POST">
+                <!-- action คือ สิ่งที่เอาไว้กำหนดว่าจะให้ส่งข้อมูลใน form เนีย ไปที่ไหน ส่วน method คือ การกำหนดรูปแบบการส่งข้อมูล -->
                 <div class="form-group">
                     <label for="Username">Username</label>
                     <input type="text" class="form-control" id="Username" name="username" placeholder="Username" required>
@@ -49,7 +50,7 @@ session มีคุณสมบัติทุกอย่างเหมือ
 </html>
 <?php
 if (isset($_POST["submit_login"])) {
-    // ถ้า มีการกดปุ่ม Submit เข้ามา 
+    // ถ้า มี submit_login ในรูปแบบ post เข้ามา ให้ทำงานในสโคปนี้
     require_once("connect.php");
     $username = mysqli_real_escape_string($connect, $_POST["username"]);
     $password = mysqli_real_escape_string($connect, $_POST["password"]);
