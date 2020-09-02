@@ -8,7 +8,7 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <!-- กำหนดรูปแบบของตัวอักษร ถ้าไม่ใส่อาจจะทำให้การแสดงผลของตัวอักษรในบางภาษาแสดงผลไม่ถูกต้องไป -->
+    <!-- กำหนดรูปแบบของตัวอักษร ถ้าไม่ใส่อาจจะทำให้การแสดงผลของตัวอักษรในบางภาษาแสดงผลไม่ถูกต้องได้ -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- กำหนดขนาดหน้าจอ ความกว้าง=ความกว้างของหน้าจอ อัตราส่วน 1.0 -->
@@ -38,7 +38,7 @@ session_start();
         <div align="center">
             <h1>Register Form</h1>
         </div>
-        <form action="submit_register.php" method="POST">
+        <form action="" method="POST">
             <!-- 
                 action คือ สิ่งที่เอาไว้กำหนดว่าจะให้ส่งข้อมูลใน form เนีย ไปที่ไหน 
                 method คือ การกำหนดรูปแบบการส่งข้อมูล 
@@ -140,8 +140,11 @@ if (isset($_POST["submit_register"])) {
             $_SESSION['username'] = $username;
             // กำหนด session ชื่อ username ให้เก็บชื่อผู้ใช้เอาไว้ ให้เบาร์เซอร์จำไว้ว่า เนียที่เราล็อกอินอยู่เนีย ล็อกอินด้วย username นี้นะ
 
-            header("Location: index.php");
-            // เป็นคำสั่งให้ redirect ไปที่ไฟล์หรือหน้า index.php เป็นคำสั่ง redirect ของ php
+            echo "<script>window.location='index.php'</script>";
+            // window.location เป็นคำสั่งให้ redirect ไปที่ไฟล์หรือหน้าที่กำหนดไว้ ตามโค้ดด้านบนคือไปที่หน้า index.php
+            /*
+            redirect คือการเปลี่ยนเส้นทาง หรือ เปลี่ยนหน้าเว็บไปหน้านั้นๆที่เรากำหนดไว้
+            */
 
         } else {
             echo "<script>alert('Something went wrong');</script>";
