@@ -5,6 +5,9 @@ session_start();
 session_destroy();
 // ทำลาย หรือ ยกเลิก session ทั้งหมดที่เรากำหนดไว้
 
-header("Location: index.php");
-// ให้ redirect หรือ พา ไปหน้า index.php
+echo "<script>window.location='index.php'</script>";
+// window.location เป็นคำสั่งให้ redirect ไปที่ไฟล์หรือหน้าที่กำหนดไว้ ตามโค้ดด้านบนคือไปที่หน้า index.php
+/*
+redirect คือการเปลี่ยนเส้นทาง หรือ เปลี่ยนหน้าเว็บไปหน้านั้นๆที่เรากำหนดไว้
+*/
 ?>
