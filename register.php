@@ -3,11 +3,12 @@ session_start();
 // เริ่มการทำงานของ session
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
+<!-- เป็นการกำหนดภาษาพื้นฐานของหน้าเว็บ -->
 
 <head>
     <meta charset="UTF-8">
-    <!-- กำหนดรูปแบบของตัวอักษร -->
+    <!-- กำหนดรูปแบบของตัวอักษร ถ้าไม่ใส่อาจจะทำให้การแสดงผลของตัวอักษรในบางภาษาแสดงผลไม่ถูกต้องไป -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- กำหนดขนาดหน้าจอ ความกว้าง=ความกว้างของหน้าจอ อัตราส่วน 1.0 -->
@@ -26,22 +27,41 @@ session_start();
 
 <body>
     <div class="container">
-        <div class="justify-content-md-center">
-            <div class="d-flex justify-content-center">
-                <h1>Register Form</h1>
-            </div>
-            <form action="" method="POST">
-                <div class="form-group">
-                    <label for="Username">Username</label>
-                    <input type="text" class="form-control" id="Username" name="username" placeholder="Username" required>
-                </div>
-                <div class="form-group">
-                    <label for="Password">Password</label>
-                    <input type="password" class="form-control" id="Password" name="password" placeholder="Password" required>
-                </div>
-                <button type="submit" name="submit_register" class="btn btn-primary">Submit</button>
-            </form>
+        <!-- 
+            container เป็น class ของ bootstrap 4 
+            ลักษณะการทำงานคือ จะเป็นกล่องที่อยู่กลางจอ สำหรับหน้าจอใหญ่ๆ
+            ส่วน หน้าจอขนาดเล็กหรือหน้าจอโทรศัพท์เนียจะขยายให้เต็มจอ
+
+            ในส่วนนี้ต้องมีพื้นฐานเรื่อง bootstrap 4
+        -->
+
+        <div align="center">
+            <h1>Register Form</h1>
         </div>
+        <form action="submit_register.php" method="POST">
+            <!-- 
+                action คือ สิ่งที่เอาไว้กำหนดว่าจะให้ส่งข้อมูลใน form เนีย ไปที่ไหน 
+                method คือ การกำหนดรูปแบบการส่งข้อมูล 
+            -->
+            
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <input type="text" class="form-control" id="Username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" id="Password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" name="submit_register" class="btn btn-primary">Submit</button>
+            <!--
+                type เป็นการกำหนดรูปแบบ หรือ ประเภท ของตัวรับข้อมูล
+                    type="text" เป็นการรับข้อมูลแบบข้อความธรรมดา
+                    type="password" เป็นการรับข้อมูลแบบรหัสผ่านต่างกับ text ก็คือจะเปลี่ยนจากข้อความธรรมดาให้มีการ hidden หรือ ปกปิด สิ่งที่พิมพ์เข้าไปไว้แล้วแสดงเป็นจุดดำแทน
+                name เนียคือตัวกำหนดว่าจะให้ข้อมูลเนียไปเก็บที่ไหน จะคล้ายๆกับตัวแปรที่สร้างหรือประกาศเอาไว้เพื่อเก็บค่าหรือข้อมูลไว้ในตัวแปร 
+                placeholder คือข้อความที่แสดงในช่องกรอกข้อความจะแสดงต่อเมื่อไม่มีข้อมูลหรือข้อความใดๆอยู่ในช่องใส่ข้อมูล
+                required เป็นการกำหนดให้มีการร้องขอข้อมูล หรือง่ายๆก็คือ ช่องกรอกข้อมูลนี้ห้ามว่างต้องมีการกรอกข้อมูล
+            -->
+        </form>
     </div>
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -91,10 +111,10 @@ if (isset($_POST["submit_register"])) {
 
         เขียนครั้งแรกๆอาจจะงงๆถ้าหัดเขียนบ่อยๆ จะเข้าใจมากขึ้น
         */
-        
+
         $result = mysqli_query($connect, $query);
         // นำตัวแปร result มาเก็บผลการ query sql ตัวแปรสามารถใช้ซ้ำได้ เผื่อบางคนจะงงว่าทำไม result ถึงซ้ำ เพราะ query ที่เก็บใน result ก่อนหน้าไม่ได้ใช้แล้ว จึงสามารถนำตัวแปร result มาเก็บค่าใหม่ได้เลย
-        
+
         if ($result) {
             /* 
             ตรงนี้งงแน่ๆถ้าเป็นคนที่เพิ่งหัดเขียน php คือใน result ที่บอกว่าเก็บ query เนียจะเก็บค่าเป็น boolean ก็คือ True False
@@ -122,7 +142,7 @@ if (isset($_POST["submit_register"])) {
 
             header("Location: index.php");
             // เป็นคำสั่งให้ redirect ไปที่ไฟล์หรือหน้า index.php เป็นคำสั่ง redirect ของ php
-            
+
         } else {
             echo "<script>alert('Something went wrong');</script>";
             // จะทำงานเมื่อ query error หรือ เป็น false ให้แจ้งเตือนว่ามีบางอย่างไม่ถูกต้อง
@@ -130,7 +150,6 @@ if (isset($_POST["submit_register"])) {
             echo ของ php จะ echo เป็นภาษา html ตามโค้ดข้างบนคือ ใช้ tag script เพื่อเรียกใช้ภาษา javascript
             alert ของ javascript คือกล่องข้อความที่แจ้งเตือนขึ้นมา โดยจะให้แจ้งเตือนว่า   Something went wrong
             */
-
         }
     } else {
         // ตรงนี้ดูดีๆนะ ว่าเป็น else ของ if ไหน ตอนนี้มี if else ใน if else อยู่พยายามดูให้ดีๆ

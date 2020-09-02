@@ -9,12 +9,22 @@ session มีคุณสมบัติทุกอย่างเหมือ
 */
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
+<!-- เป็นการกำหนดภาษาพื้นฐานของหน้าเว็บ -->
 
 <head>
     <meta charset="UTF-8">
+    <!-- กำหนดรูปแบบของตัวอักษร ถ้าไม่ใส่อาจจะทำให้การแสดงผลของตัวอักษรในบางภาษาแสดงผลไม่ถูกต้องไป -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- กำหนดขนาดหน้าจอ ความกว้าง=ความกว้างของหน้าจอ อัตราส่วน 1.0 -->
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 
+        X-UA-Compatible คือการกำหนดเอนจิ้นหรือตัวเรนเดอร์หน้าเว็บ
+        IE=edge เป็นการกำหนดให้เรนเดอร์หน้าเว็บด้วยตัวเอนจิ้นเวอร์ชั่นล่าสุด
+     -->
+
     <title>PHP - Simple Login</title>
 
     <!-- Bootstrap 4 -->
@@ -23,27 +33,35 @@ session มีคุณสมบัติทุกอย่างเหมือ
 
 <body>
     <div class="container">
-        <div class="justify-content-md-center">
-            <div class="d-flex justify-content-center">
-                <h1>Login Form</h1>
-            </div>
-            <form action="" method="POST">
-                <!-- action คือ สิ่งที่เอาไว้กำหนดว่าจะให้ส่งข้อมูลใน form เนีย ไปที่ไหน ส่วน method คือ การกำหนดรูปแบบการส่งข้อมูล -->
-                <div class="form-group">
-                    <label for="Username">Username</label>
-                    <input type="text" class="form-control" id="Username" name="username" placeholder="Username" required>
-                </div>
-                <div class="form-group">
-                    <label for="Password">Password</label>
-                    <input type="password" class="form-control" id="Password" name="password" placeholder="Password" required>
-                </div>
-                <button type="submit" name="submit_login" class="btn btn-primary">Submit</button>
-                <!--
-                    name เนียคือตัวกำหนดว่าจะให้ข้อมูลเนียไปเก็บที่ไหน จะคล้ายๆกับตัวแปรที่สร้างหรือประกาศเอาไว้เพื่อเก็บค่าหรือข้อมูลไว้ในตัวแปร 
-                    ส่วน placeholder คือข้อความที่แสดงในช่องกรอกข้อความจะแสดงต่อเมื่อไม่มีข้อมูลหรือข้อความใดๆอยู่ในช่องใส่ข้อมูล
-                -->
-            </form>
+        <div align="center">
+            <h1>Login Form</h1>
         </div>
+        <form action="" method="POST">
+            <!-- 
+            action คือ สิ่งที่เอาไว้กำหนดว่าจะให้ส่งข้อมูลใน form เนีย ไปที่ไหน 
+            method คือ การกำหนดรูปแบบการส่งข้อมูล
+
+            ตามโค้ดข้างบนเนียคือส่งไปที่ หน้านี้หน้าเดิม แต่ถ้าต้องการจะส่งไปหน้าอื่นก็ใส่ชื่อไฟล์ที่ต้องการจะส่งไป โดยส่งไปในรูปแบบ POST
+            -->
+
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <input type="text" class="form-control" id="Username" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" id="Password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" name="submit_login" class="btn btn-primary">Submit</button>
+            <!--
+                type เป็นการกำหนดรูปแบบ หรือ ประเภท ของตัวรับข้อมูล
+                    type="text" เป็นการรับข้อมูลแบบข้อความธรรมดา
+                    type="password" เป็นการรับข้อมูลแบบรหัสผ่านต่างกับ text ก็คือจะเปลี่ยนจากข้อความธรรมดาให้มีการ hidden หรือ ปกปิด สิ่งที่พิมพ์เข้าไปไว้แล้วแสดงเป็นจุดดำแทน
+                name เนียคือตัวกำหนดว่าจะให้ข้อมูลเนียไปเก็บที่ไหน จะคล้ายๆกับตัวแปรที่สร้างหรือประกาศเอาไว้เพื่อเก็บค่าหรือข้อมูลไว้ในตัวแปร 
+                placeholder คือข้อความที่แสดงในช่องกรอกข้อความจะแสดงต่อเมื่อไม่มีข้อมูลหรือข้อความใดๆอยู่ในช่องใส่ข้อมูล
+                required เป็นการกำหนดให้มีการร้องขอข้อมูล หรือง่ายๆก็คือ ช่องกรอกข้อมูลนี้ห้ามว่างต้องมีการกรอกข้อมูล
+            -->
+        </form>
     </div>
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -56,6 +74,11 @@ session มีคุณสมบัติทุกอย่างเหมือ
 <?php
 if (isset($_POST["submit_login"])) {
     // ถ้า มี submit_login ในรูปแบบ post เข้ามา ให้ทำงานในสโคปนี้
+    /*
+    จาก action="" ก็คือส่งมาหน้านี้หน้าเดิม
+    ถ้ากด submit มาก็จะมี ข้อมูลจากฟอร์ม ที่ถูกส่งเข้ามาด้วยในหน้านี้
+    พอมี ข้อมูลจากฟอร์ม ก็จะผ่านเงื่อนไขแล้วทำงานในนี้ได้เลย 
+    */
 
     require_once("connect.php");
     // ไปเอาไฟล์ หรือ นำไฟล์ connect.php เข้ามาใช้งานในไฟล์นี้ ในไฟล์ connect.php มีตัวแปรอะไรบ้าง ก็สามารถใช้งานตัวแปรนั้นในไฟล์นี้ได้เลย
